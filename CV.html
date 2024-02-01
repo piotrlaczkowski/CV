@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <title>Piotr Laczkowski - CV</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background-color: #f8f4f4;
+        }
+        .header, .footer {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .header {
+            padding: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            padding: 0px 0; /* Adjust the vertical padding to fit your needs */
+            font-size: 0.8em; /* Adjust the font size to fit your needs */
+        }
+        .profile-section, .experience-section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+
+        }
+        .skill-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 4px;
+        }
+        .skill-bar {
+            background-color: #ddd;
+            height: 20px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .skill-bar-inner {
+            background-color: #4CAF50;
+            height: 100%;
+            border-radius: 4px;
+        }
+        .profile-pic img {
+            width: 20%;
+            height: auto;
+        }
+        .skill-advanced { width: 90%; }
+        .skill-intermediate { width: 75%; }
+        .skill-basic { width: 50%; }
+        /* Additional custom styles */
+
+        .section-name {
+            color: #28BC83;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Add black shadow */
+            border-bottom: 2px solid black; /* Change underline color to black */
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            display: inline-block;
+            width: 100%; /* Take 100% width of the container */
+        }
+
+        .section-title {
+            color: #28BC83;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Add black shadow */
+            border-bottom: 2px solid black; /* Change underline color to black */
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            display: inline-block;
+            width: 100%; /* Take 100% width of the container */
+            text-align: right; /* Add text alignment to the right */
+        }
+
+        .contact-info {
+            padding-left: 0;
+            color: #333;
+        }
+
+        .contact-info li {
+            padding: 2px 0;
+        }
+
+        .contact-info strong {
+            color: #000;
+        }
+        .work-experience {
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        .work-title {
+            color: #28BC83;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); /* Add black shadow */
+            margin-bottom: 3px;
+        }
+        .work-company {
+            font-weight: bold;
+            color: black;
+            text-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.1); /* Add black shadow */
+        }
+        .work-city {
+            color: black;
+            font-style: italic;
+            text-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.1); /* Add black shadow */
+        }
+        .work-date {
+            font-style: italic;
+            color: grey;
+            margin-top: 2px;
+            margin-bottom: 3px;
+        }
+        .work-description {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        .row_experience::before {
+            content: "•";
+            color: #28BC83;
+            font-size: 50px;
+            position: absolute;
+            left: -1%;
+            top: 12%;
+            transform: translateY(-50%);
+            text-shadow: 2px 2px 4px rgba(0, 128, 0, 0.5); /* green shadow */
+        }
+
+        .skills-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 0;
+            margin-bottom: 0;
+            list-style: none;
+        }
+        #myDiv {
+            height: 150px;
+        }
+        .star-rating .fa-star {
+            color: rgb(253, 200, 101);
+        }
+        .table {
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+        .table.no-border td, .table.no-border th {
+            border: 0 !important;
+        }
+        .table.no-border tbody tr {
+            border: 0 !important;
+        }
+        .profile-pic {
+            width: 170px; /* Increase the width to make the photo bigger */
+            height: 170px; /* Increase the height to make the photo bigger */
+            border-radius: 60%; /* Apply border-radius to create a circular shape */
+            overflow: hidden; /* Hide any overflow outside the circular shape */
+            background-color: #28BC83; /* Set the background color to green */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-pic img {
+            height: auto;
+            width: 100%;
+            object-fit: contain;
+        }
+        .profile-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px; /* Add margin to separate the social links */
+            color: black; /* Set the color of the links to black */
+            margin: 5px; /* Add margin to separate the links */
+        }
+        .social-links a, .social-links a i {
+            color: black;
+        }
+        .social-links a:hover, .social-links a:hover i {
+            color: gray; /* Change to the color you want */
+        }
+        .social-links a {
+            margin: 0 10px; /* Adjust the value to fit your needs */
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <div class="profile-section text-center">
+                    <div class="profile-pic">
+                        <img src="photo.png" alt="Profile Picture">
+                    </div>
+
+                    <h1 class="section-name">Piotr Laczkowski</h1>
+                        <strong>Head of Data Science, PhD</strong>
+                        <a href="http://piotrlaczkowski.com/">https://piotrlaczkowski.com/</a>
+                    </p>
+                </div>
+                <div class="profile-section">
+                    <h2 class="section-title">ABOUT ME</h2>
+                    <p style="font-style: italic; text-align: justify;">
+                        Dynamic and passionate R&D Engineer/Data Scientist with strong ability to cope with complex problems and concepts. Quick learner with a solid scientific background, experienced in high responsibility innovative international projects.
+                        Interested in Artificial Intelligence and Machine Learning R&D, BigData, software development, Data-Mining, fast-growing start-ups. A good team player with a sense of humour, rigorous and result oriented, communicative, eager to knowledge sharing and exchange.
+                    </p>
+                </div>
+                <div class="experience-section">
+                    <h2 class="section-title">CONTACT</h2>
+                    <ul class="list-unstyled contact-info">
+                        <li><strong>📞 Phone:</strong> 06 50 71 13 24</li>
+                        <li><strong>✉️  Email:</strong> piotr.laczkowski@gmail.com</li>
+                        <li><strong>🏠 Address:</strong> 12, Chemin de Paris, 92330 Sceaux</li>
+                    </ul>
+                </div>
+
+                <div class="experience-section">
+                    <h2 class="section-title">SOCIAL</h2>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/piotrlaczkowski" target="_blank"><i class="fab fa-facebook-square"></i> Facebook</a>
+                        <a href="https://github.com/piotrlaczkowski" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/piotr-łączkowski-phd-0925b414/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        <a href="https://www.researchgate.net/profile/piotrlaczkowski" target="_blank"><i class="fab fa-researchgate"></i> ResearchGate</a>
+                    </div>
+                </div>
+
+                <div class="experience-section">
+                    <h2 class="section-title">SCIENCE</h2>
+                    <p>📑 Scientific Publications > 30</p>
+                    <div id="myDiv"></div>
+                    <script>
+                        var trace1 = {
+                            x: ['<2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                            y: [44, 49, 105, 153, 187, 183, 192, 194, 188, 196, 191, 134, 11],
+                            name: 'SF Zoo',
+                            type: 'bar',
+                            marker: {
+                                color: '#28BC83'
+                            }
+                        };
+                        var data = [trace1];
+                        var layout = {barmode: 'group', height: 120, margin: { t: 0, b: 15, l: 25, r: 0 }};
+                        Plotly.newPlot('myDiv', data, layout);
+                    </script>
+                    <p>🎙 international Conferences & invited talks</p>
+                    <p>🎓 Teaching Experience</p>
+                    <p>🔍 App.Phys.Lett referee > 5 years</p>
+                    <p>🌎 American Physics Society Member</p>
+                </div>
+                <div class="experience-section">
+                    <h2 class="section-title">HOBBIES</h2>
+                    <p style="font-style: italic; text-align: center;">
+                        <span style="font-size: 30px; line-height: 1.5;">🎸 📸 ⛰ ✈️</span><br>
+                        <span style="font-size: 30px; line-height: 1.5;">⛷ 🎨 🧪</span>
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="col-8">
+
+                <div class="experience-section">
+                    <h2 class="section-title">WORK EXPERIENCE</h2>
+                    <!-- EXPERIENCE JOB -->
+                    <div class="row_experience" style="position: relative;">
+                        <div class="row" style="position: relative;">
+                            <div class="col-2">
+                                <div class="work-experience">
+                                    <p class="work-company">Leroy Merlin</p>
+                                    <p class="work-city">Paris / Lille</p>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="work-experience">
+                                    <p class="work-title">Head of Data Science</p>
+                                    <p class="work-date">2022 - present</p>
+                                    <p class="work-description">
+                                        Responsible of the entire scope of Data Science for Leroy Merlin France, managing big team of ~15 people and external resources.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- EXPERIENCE JOB -->
+                    <div class="row_experience" style="position: relative;">
+                        <div class="row" style="position: relative;">
+                            <div class="col-2">
+                                <div class="work-experience">
+                                    <p class="work-company">Vestiaire Collective</p>
+                                    <p class="work-city">Paris</p>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="work-experience">
+                                    <p class="work-title">Lead Data Scientist</p>
+                                    <p class="work-date">2019 - 2022</p>
+                                    <p class="work-description">
+                                        Data Science and Machine Learning for e-commerce. In charge of product related aspects, infrastructure QA and documentation.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- EXPERIENCE JOB -->
+                    <div class="row_experience" style="position: relative;">
+                        <div class="row" style="position: relative;">
+                            <div class="col-2">
+                                <div class="work-experience">
+                                    <p class="work-company">Back Market</p>
+                                    <p class="work-city">Paris</p>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="work-experience">
+                                    <p class="work-title">Head of Data / Full Stack Django Developer</p>
+                                    <p class="work-date">2016 - 2019</p>
+                                    <p class="work-description">
+                                        Management of Data Science and Engineering Teams and projects coordination with teams.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- EXPERIENCE JOB -->
+                     <div class="row_experience" style="position: relative;">
+                        <div class="row" style="position: relative;">
+                            <div class="col-2">
+                                <div class="work-experience">
+                                    <p class="work-company">CNRS/Thales</p>
+                                    <p class="work-city">Palaiseau</p>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="work-experience">
+                                    <p class="work-title">R&D Engineer/Researcher</p>
+                                    <p class="work-date">2012 - 2016</p>
+                                    <p class="work-description">
+                                        Nano-fabrication of Implanted Spintronics transistors. Data analysis, automation and project coordination.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- EXPERIENCE JOB -->
+                    <div class="row_experience" style="position: relative;">
+                        <div class="row" style="position: relative;">
+                            <div class="col-2">
+                                <div class="work-experience">
+                                    <p class="work-company">CEA</p>
+                                    <p class="work-city">Grenoble</p>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="work-experience">
+                                    <p class="work-title">R&D Engineer/Researcher</p>
+                                    <p class="work-date">2009 - 2012</p>
+                                    <p class="work-description">
+                                        Nano-fabrication, data analysis, modelling and visualization.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- EXPERIENCE JOB -->
+                    <div class="row_experience" style="position: relative;">
+                        <div class="row" style="position: relative;">
+                            <div class="col-2">
+                                <div class="work-experience">
+                                    <p class="work-company">CNRS</p>
+                                    <p class="work-city">Grenoble</p>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="work-experience">
+                                    <p class="work-title">R&D Engineer/Researcher</p>
+                                    <p class="work-date">2006 - 2008</p>
+                                    <p class="work-description">
+                                        Engineering for near-field microscopy.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="experience-section">
+                    <h2 class="section-title">EDUCATION</h2>
+                    <!-- EDUCATION -->
+                    <div class="row_experience" style="position: relative;">
+                        <div class="row" style="position: relative;">
+                            <div class="col-2">
+                                <div class="work-experience">
+                                    <p class="work-company">PhD Physics</p>
+                                    <p class="work-city">Grenoble</p>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="work-experience">
+                                    <p class="work-title">Joseph Fourier University, Grenoble, France</p>
+                                    <p class="work-date">2009 - 2012</p>
+                                    <p class="work-description">
+                                        Spin currents and spin Hall effect in metallic lateral nano-structures.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- EDUCATION -->
+                    <div class="row_experience" style="position: relative;">
+                        <div class="row" style="position: relative;">
+                            <div class="col-2">
+                                <div class="work-experience">
+                                    <p class="work-company">Master Physics</p>
+                                    <p class="work-city">Poznan</p>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="work-experience">
+                                    <p class="work-title">Adams Mickiewicz University, Poznan, Poland</p>
+                                    <p class="work-date">2003 - 2009</p>
+                                    <p class="work-description">
+                                        Experimental Physics and NanoTechnology for Spintronics.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="skill-section">
+                    <h3 class="section-title">SKILLS</h3>
+                    <!-- <div class="skill-bar">
+                        <div class="skill-bar-inner skill-advanced"></div>
+                    </div> -->
+                    <!-- SKILLSET -->
+                    <div class="row" style="position: relative;">
+                        <div class="col-2">
+                            <div class="work-experience">
+                                <p class="work-company">Programming:</p>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="skills-buttons">
+                                <button type="button" class="btn btn-light btn-sm">Python</button>
+                                <button type="button" class="btn btn-light btn-sm">Django</button>
+                                <button type="button" class="btn btn-light btn-sm">SQL</button>
+                                <button type="button" class="btn btn-light btn-sm">AngularJS</button>
+                                <button type="button" class="btn btn-light btn-sm">HTML</button>
+                                <button type="button" class="btn btn-light btn-sm">CSS</button>
+                                <button type="button" class="btn btn-light btn-sm">Labview</button>
+                                <button type="button" class="btn btn-light btn-sm">C++</button>
+                                <button type="button" class="btn btn-light btn-sm">Flask</button>
+                                <button type="button" class="btn btn-light btn-sm">FastAPI</button>
+                                <button type="button" class="btn btn-light btn-sm">GOLang</button>
+                                <button type="button" class="btn btn-light btn-sm">Numpy</button>
+                                <button type="button" class="btn btn-light btn-sm">TensorFlow</button>
+                                <button type="button" class="btn btn-light btn-sm">Streamlit</button>
+                                <button type="button" class="btn btn-light btn-sm">Keras</button>
+                                <button type="button" class="btn btn-light btn-sm">Pytorch</button>
+                                <button type="button" class="btn btn-light btn-sm">Scipy</button>
+                                <button type="button" class="btn btn-light btn-sm">SkLearn</button>
+                                <button type="button" class="btn btn-light btn-sm">OpenCV</button>
+                                <button type="button" class="btn btn-light btn-sm">Gluon</button>
+                                <button type="button" class="btn btn-light btn-sm">...</button>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br
+                    <!-- SKILLSET -->
+
+                        <div class="row" style="position: relative;">
+                            <div class="col-2">
+                                <div class="work-experience">
+                                    <p class="work-company">Technologies:</p>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <div class="skills-buttons">
+                                    <button type="button" class="btn btn-light btn-sm">Airflow</button>
+                                    <button type="button" class="btn btn-light btn-sm">Prefekt</button>
+                                    <button type="button" class="btn btn-light btn-sm">AWS Stack</button>
+                                    <button type="button" class="btn btn-light btn-sm">GCP Stack</button>
+                                    <button type="button" class="btn btn-light btn-sm">Snowflake</button>
+                                    <button type="button" class="btn btn-light btn-sm">CI/CD</button>
+                                    <button type="button" class="btn btn-light btn-sm">Jenkins</button>
+                                    <button type="button" class="btn btn-light btn-sm">Git</button>
+                                    <button type="button" class="btn btn-light btn-sm">Gitlab</button>
+                                    <button type="button" class="btn btn-light btn-sm">GitHub</button>
+                                    <button type="button" class="btn btn-light btn-sm">Superset</button>
+                                    <button type="button" class="btn btn-light btn-sm">Elasticsearch</button>
+                                    <button type="button" class="btn btn-light btn-sm">Swagger</button>
+                                    <button type="button" class="btn btn-light btn-sm">MLFlow</button>
+                                    <button type="button" class="btn btn-light btn-sm">TensorFlow</button>
+                                    <button type="button" class="btn btn-light btn-sm">DBT</button>
+                                    <button type="button" class="btn btn-light btn-sm">GraphQL</button>
+                                    <button type="button" class="btn btn-light btn-sm">GRPC</button>
+                                    <button type="button" class="btn btn-light btn-sm">Tableau</button>
+                                    <button type="button" class="btn btn-light btn-sm">Redash</button>
+                                    <button type="button" class="btn btn-light btn-sm">Redis</button>
+                                    <button type="button" class="btn btn-light btn-sm">DVC</button>
+                                    <button type="button" class="btn btn-light btn-sm">Prometheus</button>
+                                    <button type="button" class="btn btn-light btn-sm">...</button>
+
+                                </div>
+                            </div>
+                        </div>
+
+                     <!-- SKILLSET -->
+                     <br>
+
+                     <div class="row" style="position: relative;">
+                        <div class="col-2">
+                            <div class="work-experience">
+                                <p class="work-company">Data-Bases:</p>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="skills-buttons">
+                                <button type="button" class="btn btn-light btn-sm">BigQuery</button>
+                                <button type="button" class="btn btn-light btn-sm">Snowflake</button>
+                                <button type="button" class="btn btn-light btn-sm">SQL</button>
+                                <button type="button" class="btn btn-light btn-sm">MongoDB</button>
+                                <button type="button" class="btn btn-light btn-sm">PostgresSQL</button>
+                                <button type="button" class="btn btn-light btn-sm">Redshift</button>
+                                <button type="button" class="btn btn-light btn-sm">TinyDB</button>
+                                <button type="button" class="btn btn-light btn-sm">Vertica</button>
+                                <button type="button" class="btn btn-light btn-sm">VectorDBs</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SKILLSET -->
+                    <br>
+
+                    <div class="row" style="position: relative;">
+                       <div class="col-2">
+                           <div class="work-experience">
+                               <p class="work-company">Other:</p>
+                           </div>
+                       </div>
+                       <div class="col-10">
+                           <div class="skills-buttons">
+                               <button type="button" class="btn btn-light btn-sm">Agile</button>
+                               <button type="button" class="btn btn-light btn-sm">Scrum</button>
+                               <button type="button" class="btn btn-light btn-sm">Kanban</button>
+                               <button type="button" class="btn btn-light btn-sm">Jira</button>
+                               <button type="button" class="btn btn-light btn-sm">Trello</button>
+                               <button type="button" class="btn btn-light btn-sm">OKRs</button>
+                               <button type="button" class="btn btn-light btn-sm">GH-Projects</button>
+
+                           </div>
+                       </div>
+                   </div>
+
+
+
+                </div>
+
+                <div class="skill-section">
+                    <h3 class="section-title">LANGUAGES</h3>
+                    <div class="container mt-5">
+                        <script>
+                            function generateStars(numStars) {
+                                let stars = '';
+                                for (let i = 0; i < numStars; i++) {
+                                    stars += '<span>⭐️</span>';
+                                }
+                                return stars;
+                            }
+                        </script>
+                        <table class="table no-border">
+                                <tr>
+                                    <th scope="col">English</th>
+                                    <th scope="col">French</th>
+                                    <th scope="col">Polish</th>
+                                    <th scope="col">Russian</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="star-rating">
+                                            <script>document.write(generateStars(4));</script>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="star-rating">
+                                            <script>document.write(generateStars(4));</script>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="star-rating">
+                                            <script>document.write(generateStars(4));</script>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="star-rating">
+                                            <script>document.write(generateStars(2));</script>
+                                        </div>
+                                    </td>
+                                </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="row footer">
+            <div class="col-12">
+                <p>&copy; 2024 Piotr Laczkowski</p>
+            </div>
+        </div> -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.3/dist/umd/popper.min.js"></script>
+
+    <!-- <a href="#" class="export-btn" id="export-pdf">Export to PDF</a> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script>
+        document.getElementById('export-pdf').addEventListener('click', function () {
+            const element = document.body;
+            const options = {
+                margin: 1,
+                filename: 'CV.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'A4', orientation: 'portrait' }
+            };
+            html2pdf().set(options).from(element).save();
+        });
+    </script>
+</body>
+</html>
